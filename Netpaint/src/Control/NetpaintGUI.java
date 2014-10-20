@@ -3,13 +3,17 @@
  */
 
 
-package View;
+package Control;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
+
+import View.CanvasPanel;
+import View.ColorPanel;
+import View.ShapeSelectPanel;
 
 public class NetpaintGUI extends JFrame {
 

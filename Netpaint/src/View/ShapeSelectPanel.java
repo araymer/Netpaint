@@ -45,6 +45,8 @@ public class ShapeSelectPanel extends JPanel {
 		this.add(ellipseBtn);
 		this.add(rectBtn);
 		this.add(imageBtn);
+		
+		//TODO: we need to add a listener to pass an enum (SelectedShape current) somewhere so we know which shape class to call.
 	}
 
 }
