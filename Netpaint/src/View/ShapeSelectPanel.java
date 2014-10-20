@@ -55,4 +55,14 @@ public class ShapeSelectPanel extends JPanel {
 		//TODO: we need to add a listener to pass an enum (SelectedShape current) somewhere so we know which shape class to call.
 	}
 
+	/**
+	 * @param none
+	 * @return SelectedShape - ENUM decided by current selected radiobutton in group.
+	 */
+	public SelectedShape getSelectedShape() {
+		//TODO: this needs to return the appropriate ENUM associated with the currently selected radiobutton in group.
+		return null;
+		
+	}
+
 }
