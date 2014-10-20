@@ -1,5 +1,7 @@
 /**
- * Author: Aaron Raymer, Doug 
+ * NetpaintGUI is the controller class to compile necessary appication elements, including GUI, in a single class.
+ * @Author: Aaron Raymer & Doug Wade
+ * 
  */
 
 
@@ -40,7 +42,11 @@ public class NetpaintGUI extends JFrame {
 	}
 
 	
-
+/**
+ * @param none
+ * @return none
+ * setupJFrame sets the JFrame and adds the JPanel classes to it for display.
+ */
 	private void setupJFrame() {
 		
 		this.setSize(800, 800);

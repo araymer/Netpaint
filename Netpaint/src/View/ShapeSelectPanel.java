@@ -1,3 +1,9 @@
+/**
+ * ShapeSelect is a class that extends JPanel and displays the radiobuttons for selecting what to draw on the canvas.
+ * Each button is assigned a SelectedShape ENUM to determine which shape to draw. 
+ * @author Aaron Raymer & Doug Wade
+ */
+
 package View;
 
 import java.awt.Dimension;
