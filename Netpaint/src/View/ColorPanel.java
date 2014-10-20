@@ -1,6 +1,7 @@
 package View;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JColorChooser;
@@ -18,6 +19,13 @@ public class ColorPanel extends JPanel {
 		setLayout(new BorderLayout());
 		
 		add(chooser, BorderLayout.PAGE_END);
+		
+	}
+
+	public static Color getColor() {
+		
+		// TODO Return selected color
+		return null;
 		
 	}
 
