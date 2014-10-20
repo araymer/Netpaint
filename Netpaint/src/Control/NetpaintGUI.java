@@ -1,5 +1,5 @@
 /**
- * NetpaintGUI is the controller class to compile necessary appication elements, including GUI, in a single class.
+ * NetpaintGUI is the controller class to compile necessary application elements, including GUI, in a single class.
  * @Author: Aaron Raymer & Doug Wade
  * 
  */
