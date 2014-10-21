@@ -1,5 +1,6 @@
 package View;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -15,23 +16,27 @@ import javax.swing.JPanel;
 
 import Model.SelectedShape;
 
+@SuppressWarnings("serial")
 public class CanvasPanel extends JPanel {
 	
 	private int x1, x2, y1, y2;
 	private boolean isDrawing;
-	private ShapeSelectPanel shape;
+
 	
 	public CanvasPanel() {
 		super();
+		
+		
 	
 		x1 = y1 = x2 = y2 = 0;
-		setLayout(new FlowLayout());
+		isDrawing = false;
 		
+		setLayout(new FlowLayout());
+		setBackground(Color.WHITE);
 		addMouseListener(new ListenToMouse());
+		addMouseMotionListener(new ListenToMouse());
 		
 		setPreferredSize(new Dimension(800,400));
-		
-		
 		
 	}
 
@@ -41,17 +46,22 @@ public class CanvasPanel extends JPanel {
 		@Override
 		public void mouseClicked(MouseEvent e) {
 
-			isDrawing = !isDrawing;
+			
 			
 			if(!isDrawing) {
 				x1 = e.getX();
 				y1 = e.getY();
+				System.out.println("COORD1 " + x1 + ", " + y1);
 			}
 			else {
 				x2 = e.getX();
 				y2 = e.getY();
+				repaint();
+				System.out.println("COORD2 " + x2  + ", " + y2);
 				
 			}
+			
+			isDrawing = !isDrawing;
 			
 			
 		}
@@ -89,9 +99,10 @@ public class CanvasPanel extends JPanel {
 		@Override
 		public void mouseMoved(MouseEvent e) {
 			
-				if(!isDrawing) {
+				if(isDrawing) {
 					x2 = e.getX();
 					y2 = e.getY();
+					System.out.println("MOVED TO " + x2 + ", "+ y2);
 					repaint();
 				}
 				
@@ -108,22 +119,37 @@ public class CanvasPanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
-		SelectedShape check = shape.getSelectedShape();
 		
-		if(isDrawing) {
+		
+	
 			
-		//	g.setColor(ColorPanel.getColor());
+			g.setColor(ColorPanel.getInstance().getColor());
 			
-			if(check == SelectedShape.LINE) {
+			if(ShapeSelectPanel.getInstance().getSelectedShape() == SelectedShape.LINE) {
 				g.drawLine(x1, y1, x2, y2);
 			}
-			else if(check == SelectedShape.RECT) {
-				g.fillRect(x1, y1, x2-x1, y2-y1);
+			else if(ShapeSelectPanel.getInstance().getSelectedShape() == SelectedShape.RECT) {
+					if(x2-x1>=0 && y2-y1>=0)
+						g.fillRect(x1, y1, x2-x1, y2-y1);
+					else if(x2-x1<0 && y2-y1>=0)
+						g.fillRect(x2, y1, x1-x2, y2-y1);
+					else if(x2-x1>=0 && y2-y1<0)
+						g.fillRect(x1, y2, x2-x1, y1-y2);
+					else if(x2-x1<0 && y2-y1<0)
+						g.fillRect(x2, y2, x1-x2, y1-y2);
+				
 			}
-			else if(check == SelectedShape.ELLIPSE) {
-				g.fillOval(x1, y1, x2-x1, y2-y1);
+			else if(ShapeSelectPanel.getInstance().getSelectedShape() == SelectedShape.ELLIPSE) {
+					if(x2-x1>=0 && y2-y1>=0)
+						g.fillOval(x1, y1, x2-x1, y2-y1);
+					else if(x2-x1<0 && y2-y1>=0)
+						g.fillOval(x2, y1, x1-x2, y2-y1);
+					else if(x2-x1>=0 && y2-y1<0)
+						g.fillOval(x1, y2, x2-x1, y1-y2);
+					else if(x2-x1<0 && y2-y1<0)
+						g.fillOval(x2, y2, x1-x2, y1-y2);
 			}
-			else if(check == SelectedShape.IMAGE) {
+			else if(ShapeSelectPanel.getInstance().getSelectedShape() == SelectedShape.IMAGE) {
 				
 				BufferedImage image = null;
 				
@@ -136,15 +162,12 @@ public class CanvasPanel extends JPanel {
 				g.drawImage(image , x1, y1, x2-x1, y2-y1, null);
 				
 			}
-			else {
-				return;
-			}
-		
-		
-		
+			
+			
+	
 	}
-	
-	
-}
-	
+	@Override
+	public void update(Graphics g) {
+		paint (g);
+	}
 }

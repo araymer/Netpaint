@@ -10,8 +10,8 @@ import javax.swing.JPanel;
 public class ColorPanel extends JPanel {
 	
 	private JColorChooser chooser;
-	
-	public ColorPanel() {
+	private static ColorPanel panel;
+	private ColorPanel() {
 		
 		chooser = new JColorChooser();
 		
@@ -22,10 +22,17 @@ public class ColorPanel extends JPanel {
 		
 	}
 
-	public static Color getColor() {
-		
-		// TODO Return selected color
-		return null;
+	public static synchronized ColorPanel getInstance() {
+		if(panel == null)
+			panel = new ColorPanel();
+	
+			return panel;
+			
+	}
+	
+	public Color getColor() {
+
+		return chooser.getColor();
 		
 	}
 

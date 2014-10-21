@@ -22,6 +22,7 @@ import Model.SelectedShape;
 @SuppressWarnings("serial")
 public class ShapeSelectPanel extends JPanel implements ActionListener {
 	
+	private static ShapeSelectPanel panel;
 	private JRadioButton lineBtn;
 	private JRadioButton ellipseBtn;
 	private JRadioButton rectBtn;
@@ -39,7 +40,7 @@ public class ShapeSelectPanel extends JPanel implements ActionListener {
 	 * @param none
 	 * @return N/A
 	 */
-	public ShapeSelectPanel() {
+		private ShapeSelectPanel() {
 		
 		group = new ButtonGroup();
 		
@@ -78,7 +79,20 @@ public class ShapeSelectPanel extends JPanel implements ActionListener {
 		imageBtn.setActionCommand(image);
 		
 	}
-	
+	/**
+	 * Checks to see if the object has been instantiated, and if not, 
+	 * instantiates it.
+	 * @param none 
+	 * @return ShapeSelectPanel
+	 * 
+	 */
+	public static synchronized ShapeSelectPanel getInstance() {
+		if(panel == null) {
+			panel = new ShapeSelectPanel();
+		}
+		return panel;
+	}
+		
 	/**
 	 * Returns currently selected shape
 	 * @param none

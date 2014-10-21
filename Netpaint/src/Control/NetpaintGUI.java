@@ -7,15 +7,11 @@
 
 package Control;
 
-import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 
 import javax.swing.JFrame;
 
-import Model.SelectedShape;
 import View.CanvasPanel;
 import View.ColorPanel;
 import View.ShapeSelectPanel;
@@ -25,25 +21,25 @@ public class NetpaintGUI extends JFrame {
 	
 	private CanvasPanel canvas;
 	private ColorPanel colors;
-	private ShapeSelectPanel shapeSelect;
+	//private ShapeSelectPanel shapeSelect;
 
 
 	
 	public static void main(String[] args) {
-		new NetpaintGUI();
+		new NetpaintGUI().setVisible(true);
 	}
 	
 	public NetpaintGUI() {
 		
 		canvas = new CanvasPanel();
-		colors = new ColorPanel();
-		shapeSelect = new ShapeSelectPanel();
+		ColorPanel.getInstance();
+		ShapeSelectPanel.getInstance();
 	
 		
 		setupJFrame();
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setVisible(true);
+		this.pack();
 	}
 
 	
@@ -54,15 +50,13 @@ public class NetpaintGUI extends JFrame {
  */
 	private void setupJFrame() {
 		
-		
+		setPreferredSize(new Dimension(600,800));
 		setLocation(100, 0);
 		setLayout(new FlowLayout());
 		add(canvas);
-		add(shapeSelect);
-		add(colors);
-		this.setSize(800, 800);
-		
-	
+		add(ShapeSelectPanel.getInstance());
+		add(ColorPanel.getInstance());
+
 	}
 	
 	
