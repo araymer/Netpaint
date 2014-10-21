@@ -14,7 +14,10 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import Model.SelectedShape;
+import Control.NetpaintGUI;
+
+import Model.*;
+
 
 @SuppressWarnings("serial")
 public class CanvasPanel extends JPanel {
@@ -51,19 +54,21 @@ public class CanvasPanel extends JPanel {
 			if(!isDrawing) {
 				x1 = e.getX();
 				y1 = e.getY();
-				System.out.println("COORD1 " + x1 + ", " + y1);
+				//System.out.println("COORD1 " + x1 + ", " + y1);
 			}
 			else {
 				x2 = e.getX();
 				y2 = e.getY();
+				//System.out.println("COORD2 " + x2 + ", " + y2);
+				
+				NetpaintGUI.getInstance().addShape(x1,y1,x2,y2,ShapeSelectPanel.getInstance().getSelectedShape(),ColorPanel.getInstance().getColor());
+				
 				repaint();
-				System.out.println("COORD2 " + x2  + ", " + y2);
 				
 			}
 			
 			isDrawing = !isDrawing;
-			
-			
+
 		}
 
 		@Override
@@ -102,7 +107,7 @@ public class CanvasPanel extends JPanel {
 				if(isDrawing) {
 					x2 = e.getX();
 					y2 = e.getY();
-					System.out.println("MOVED TO " + x2 + ", "+ y2);
+					//System.out.println("MOVED TO " + x2 + ", "+ y2);
 					repaint();
 				}
 				
@@ -120,15 +125,63 @@ public class CanvasPanel extends JPanel {
 		super.paintComponent(g);
 		
 		
-		
-	
+for(Shape s : NetpaintGUI.getInstance().getArray()) {
 			
+			int n1 = s.getX1();
+			int n2 = s.getX2();
+			int t1 = s.getY1();
+			int t2 = s.getY2();
+			
+			g.setColor(s.getColor());
+			
+			if(s instanceof Line ) {
+				g.drawLine(n1, t1, n2, t2);
+			}
+			else if(s instanceof Rectangle) {
+					if(n2-n1>=0 && t2-t1>=0)
+						g.fillRect(n1, t1, n2-n1, t2-t1);
+					else if(n2-n1<0 && t2-t1>=0)
+						g.fillRect(n2, t1, n1-n2, t2-t1);
+					else if(n2-n1>=0 && t2-t1<0)
+						g.fillRect(n1, t2, n2-n1, t1-t2);
+					else if(n2-n1<0 && t2-t1<0)
+						g.fillRect(n2,t2, n1-n2, t1-t2);
+				
+			}
+			else if(s instanceof Ellipse) {
+					if(n2-n1>=0 && t2-t1>=0)
+						g.fillOval(n1, t1, n2-n1, t2-t1);
+					else if(n2-n1<0 && t2-t1>=0)
+						g.fillOval(n2, t1, n1-n2, t2-t1);
+					else if(n2-n1>=0 && t2-t1<0)
+						g.fillOval(n1, t2, n2-n1, t1-t2);
+					else if(n2-n1<0 && t2-t1<0)
+						g.fillOval(n2, t2, n1-n2, t1-t2);
+			}
+			else if(s instanceof Image) {
+				
+				BufferedImage image = null;
+				
+				try {
+					image = ImageIO.read(new File("doge.jpeg"));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+				g.drawImage(image, n1, t1, n2-n1, t2-t1, null);
+				
+			}
+			
+		}
+
+		if(isDrawing) {
+			SelectedShape sh = ShapeSelectPanel.getInstance().getSelectedShape();
 			g.setColor(ColorPanel.getInstance().getColor());
 			
-			if(ShapeSelectPanel.getInstance().getSelectedShape() == SelectedShape.LINE) {
+			if(sh == SelectedShape.LINE) {
 				g.drawLine(x1, y1, x2, y2);
 			}
-			else if(ShapeSelectPanel.getInstance().getSelectedShape() == SelectedShape.RECT) {
+			else if(sh == SelectedShape.RECT) {
 					if(x2-x1>=0 && y2-y1>=0)
 						g.fillRect(x1, y1, x2-x1, y2-y1);
 					else if(x2-x1<0 && y2-y1>=0)
@@ -139,7 +192,7 @@ public class CanvasPanel extends JPanel {
 						g.fillRect(x2, y2, x1-x2, y1-y2);
 				
 			}
-			else if(ShapeSelectPanel.getInstance().getSelectedShape() == SelectedShape.ELLIPSE) {
+			else if(sh == SelectedShape.ELLIPSE) {
 					if(x2-x1>=0 && y2-y1>=0)
 						g.fillOval(x1, y1, x2-x1, y2-y1);
 					else if(x2-x1<0 && y2-y1>=0)
@@ -149,7 +202,7 @@ public class CanvasPanel extends JPanel {
 					else if(x2-x1<0 && y2-y1<0)
 						g.fillOval(x2, y2, x1-x2, y1-y2);
 			}
-			else if(ShapeSelectPanel.getInstance().getSelectedShape() == SelectedShape.IMAGE) {
+			else if(sh == SelectedShape.IMAGE) {
 				
 				BufferedImage image = null;
 				
@@ -163,11 +216,12 @@ public class CanvasPanel extends JPanel {
 				
 			}
 			
+		}
+		
+		
+			
 			
 	
 	}
-	@Override
-	public void update(Graphics g) {
-		paint (g);
-	}
+
 }

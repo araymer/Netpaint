@@ -7,10 +7,14 @@
 
 package Control;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
+
+import Model.*;
 
 import View.CanvasPanel;
 import View.ColorPanel;
@@ -20,17 +24,17 @@ public class NetpaintGUI extends JFrame {
 
 	
 	private CanvasPanel canvas;
-	private ColorPanel colors;
-	//private ShapeSelectPanel shapeSelect;
+	private ArrayList<Shape> shapes;
+	private static NetpaintGUI GUI;
 
 
 	
 	public static void main(String[] args) {
-		new NetpaintGUI().setVisible(true);
+		NetpaintGUI.getInstance().setVisible(true);
 	}
 	
-	public NetpaintGUI() {
-		
+	private NetpaintGUI() {
+		shapes = new ArrayList<Shape>();
 		canvas = new CanvasPanel();
 		ColorPanel.getInstance();
 		ShapeSelectPanel.getInstance();
@@ -59,6 +63,27 @@ public class NetpaintGUI extends JFrame {
 
 	}
 	
+	public void addShape(int x1, int y1, int x2, int y2, SelectedShape s, Color c) {
+		if(s == SelectedShape.LINE)
+			shapes.add(new Line(x1,y1,x2,y2,c));
+		else if(s == SelectedShape.ELLIPSE)
+			shapes.add(new Ellipse(x1,y1,x2,y2,c));
+		else if(s == SelectedShape.RECT)
+			shapes.add(new Rectangle(x1,y1,x2,y2,c));
+		else if(s == SelectedShape.IMAGE)
+			shapes.add(new Image(x1,y1,x2,y2));
+	}
+	
+	public ArrayList<Shape> getArray() {
+		return shapes;
+	}
+	
+	public static synchronized NetpaintGUI getInstance() {
+		if(GUI == null)
+			GUI = new NetpaintGUI();
+		
+		return GUI;
+	}
 	
 	
 	

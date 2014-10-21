@@ -11,7 +11,7 @@ public class Image extends Shape {
 	 * @return none
 	 */
 	public Image(int x1, int y1, int x2, int y2) {
-		super(x1, y1, x2, y2);
+		super(x1, y1, x2, y2, null);
 		// TODO Auto-generated constructor stub
 	}
 

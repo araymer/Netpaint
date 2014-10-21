@@ -1,5 +1,7 @@
 package Model;
 
+import java.awt.Color;
+
 /**
  * Represents an ellipse, with methods to construct, paint
  * and get the area. 
@@ -18,8 +20,8 @@ public class Ellipse extends Shape {
 	 * @param y2 y-coordinate
 	 * @return none
 	 */
-	public Ellipse(int x1, int y1, int x2, int y2) {
-		super(x1, y1, x2, y2);
+	public Ellipse(int x1, int y1, int x2, int y2, Color c) {
+		super(x1, y1, x2, y2, c);
 		// find the length of the x-axis and y-axis
 		if(x1 >= x2) {
 			axisX = (x1-x2)/2;

@@ -5,6 +5,8 @@
 
 package Model;
 
+import java.awt.Color;
+
 public class Rectangle extends Shape{
 
 	/**
@@ -15,8 +17,8 @@ public class Rectangle extends Shape{
 	 * @param y2 - Y coordinate of bottom-right corner
 	 * @return none
 	 */
-	public Rectangle(int x1, int y1, int x2, int y2) {
-		super(x1, y1, x2, y2);
+	public Rectangle(int x1, int y1, int x2, int y2, Color c) {
+		super(x1, y1, x2, y2, c);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -7,14 +7,14 @@
 
 package Model;
 
+import java.awt.Color;
 import java.awt.Point;
 
 
 public abstract class Shape{
 	
-	private Point pointUL;
-	private Point pointBR;
-	
+	private int x1,y1,x2,y2;
+	private Color color;
 	/**
 	 * Shape constructor
 	 * @param x1 - X coordinate of upper-left corner
@@ -23,9 +23,14 @@ public abstract class Shape{
 	 * @param y2 - Y coordinate of bottom-right corner
 	 * @return none
 	 */
-	public Shape(int x1, int y1, int x2, int y2) {
-		pointUL = new Point(x1, y1);
-		pointBR = new Point(x2, y2);
+	public Shape(int x1, int y1, int x2, int y2, Color c) {
+		
+		this.x1 = x1;
+		this.x2 = x2;
+		this.y1 = y1;
+		this.y2 = y2;
+		
+		color = c;
 	}
 	
 	/**
@@ -36,36 +41,38 @@ public abstract class Shape{
 	
 	/**
 	 * @param none
-	 * @return Point object - represents the upper left corner of the shapes drawing area.
+	 * @return return int x1
 	 */
-	public Point getPointUL() {
-		return pointUL;
+	public int getX1() {
+		return x1;
 	}
 
-	/**
-	 * 
-	 * @param point - sets upper-left point with a new point object
-	 * @return none
-	 */
-	public void setPointUL(Point point) {
-		this.pointUL = point;
-	}
+
 	
 	/**
 	 * @param none
-	 * @return Point object - represents the bottom-right corner of the shapes drawing area.
+	 * @return return int x2
 	 */
-	public Point getPointBR() {
-		return pointBR;
+	public int getX2() {
+		return x2;
 	}
 
 	/**
 	 * 
-	 * @param point - sets bottom-right point with a new point object.
-	 * @return none
+	 * @param none
+	 * @return return int y1
 	 */
-	public void setPointBR(Point point) {
-		this.pointBR = point;
+	public int getY1() {
+		return y1;
+	}
+	
+	/**
+	 * 
+	 * @param none
+	 * @return return int y2
+	 */
+	public int getY2() {
+		return y2;
 	}
 
 	/**
@@ -75,5 +82,10 @@ public abstract class Shape{
 	 * 
 	 */
 	public abstract void paintIt();
+	
+	public Color getColor()  {
+		return color;
+		
+	}
 	
 }
